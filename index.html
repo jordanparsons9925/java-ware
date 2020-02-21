@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="main.css">
     <title>JavaWare - DELUXE!!!</title>
-    <script src="scripts/controls.js" defer></script>
+    <script src="scripts/game.js" defer></script>
 </head>
 <body>
     <main>
@@ -16,6 +16,9 @@
             </div>
         </div>
     </main>
-    <img id="scrollBackground" src="sprites/backgrounds/javawareMenuBackground.png" hidden>
+    <div id="loadedImages" hidden>
+        <img id="scrollBackground" src="sprites/backgrounds/javawareMenuBackground.png">
+        <img id="errorBackground" src="sprites/backgrounds/invalidGameState.png">
+    </div>
 </body>
 </html>
