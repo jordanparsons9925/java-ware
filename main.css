@@ -1,12 +1,18 @@
 * {
     background-color: #53809d;
 }
+#centerContainer {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
 #canvasDiv {
-    border: 10px inset #2d579d;
+    border: 40px ridge #2d579d;
     border-radius: 10px;
     width: 64vw;
     height: 36vw;
-    margin: 100px 0 0 18vw;
+    margin: 7vw 0 0 0;
+    display: inline-block
 }
 canvas {
     width: 64vw;
