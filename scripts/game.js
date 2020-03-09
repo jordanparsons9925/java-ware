@@ -4,6 +4,7 @@ canvas.width = 1280;
 canvas.height = 720;
 var screen = canvas.getContext("2d");
 var gameState = "controls";
+var nextState = "";
 
 // function for retrieving sprites
 var $ = function(spriteName) {
@@ -38,6 +39,16 @@ var controlGuide = {
     Opacity: 0
 }
 
+var menuLogo = {
+    Image: $("menuLogo"),
+    Opacity: 0,
+    Direction: "In"
+}
+
+var menuOption1 = {
+    Image: $("playButton"),
+}
+
 // renders the scrolling coffee background
 function renderScrollingBackground() {
 
@@ -50,26 +61,6 @@ function renderScrollingBackground() {
     scrollingBackground.Y -= 1.1258;
 
     // reverts the position of the background when completed animation loop
-    if (scrollingBackground.Counter++ == 638) {
-        scrollingBackground.X = 0;
-        scrollingBackground.Y = 0;
-        scrollingBackground.Counter = 0;
-    }
-}
-
-function renderSmallCups() {
-    screen.drawImage(scrollingBackground.Image, scrollingBackground.X, scrollingBackground.Y);
-    screen.drawImage(scrollingBackground.Image, scrollingBackground.X+1279, scrollingBackground.Y);
-    screen.drawImage(scrollingBackground.Image, scrollingBackground.X, scrollingBackground.Y+719);
-    screen.drawImage(scrollingBackground.Image, scrollingBackground.X+1279, scrollingBackground.Y+719);
-	screen.drawImage(scrollingBackground.Image, scrollingBackground.X+1279, scrollingBackground.Y+1438);
-	screen.drawImage(scrollingBackground.Image, scrollingBackground.X+2558, scrollingBackground.Y+719);
-	screen.drawImage(scrollingBackground.Image, scrollingBackground.X+2558, scrollingBackground.Y+1438);
-    screen.drawImage(scrollingBackground.Image, scrollingBackground.X+2558, scrollingBackground.Y);
-    screen.drawImage(scrollingBackground.Image, scrollingBackground.X, scrollingBackground.Y+1438);
-    screen.drawImage(scrollingBackground.Image, scrollingBackground.X+2558, scrollingBackground.Y+1438);
-    scrollingBackground.X -= 2;
-    scrollingBackground.Y -= 1.1258;
     if (scrollingBackground.Counter++ == 638) {
         scrollingBackground.X = 0;
         scrollingBackground.Y = 0;
@@ -139,6 +130,22 @@ function renderError() {
     }
 }
 
+
+function renderMenu() {
+    if (menuLogo.Direction == "In" && menuLogo.Opacity < 1) {
+        screen.save();
+        screen.globalAlpha = menuLogo.Opacity;
+    }
+
+    screen.drawImage(menuLogo.Image, 0, 0);
+
+    if (menuLogo.Direction == "In" && menuLogo.Opacity < 1) {
+        menuLogo.Opacity += 0.1;
+        screen.restore();
+    }
+        
+}
+
 // renders screen based on current game state
 function renderScreen() {
     switch(gameState) {
@@ -148,6 +155,7 @@ function renderScreen() {
             break;
         case "menu":
             renderScrollingBackground();
+            renderMenu();
             break;
         default:
             renderError();
