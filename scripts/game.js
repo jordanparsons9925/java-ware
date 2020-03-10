@@ -3,7 +3,7 @@ var canvas = document.getElementById("screen");
 canvas.width = 1280;
 canvas.height = 720;
 var screen = canvas.getContext("2d");
-var gameState = "controls";
+var gameState = "menu";
 var nextState = "";
 
 // function for retrieving sprites
@@ -39,15 +39,32 @@ var controlGuide = {
     Opacity: 0
 }
 
+// menu logo object
 var menuLogo = {
     Image: $("menuLogo"),
     Opacity: 0,
     Direction: "In"
 }
 
+// menu play object
 var menuOption1 = {
-    Image: $("playButton"),
+    Image: $("menuPlay"),
+    X: 800,
+    Y: 400,
+    Direction: "InLeft",
+    Speed: 10
 }
+menuOption1.X = 1280;
+
+// menu score object
+var menuOption2 = {
+    Image: $("menuScore"),
+    X: 600,
+    Y: 550,
+    Direction: "InLeft",
+    Speed: 5
+}
+menuOption2.X = 1280;
 
 // renders the scrolling coffee background
 function renderScrollingBackground() {
@@ -143,7 +160,36 @@ function renderMenu() {
         menuLogo.Opacity += 0.1;
         screen.restore();
     }
-        
+
+    switch (menuOption1.Direction) {
+        case "InLeft":
+            if (menuOption1.X > 607)
+                menuOption1.X = menuOption1.X - menuOption1.Speed;
+            else
+                menuOption1.Direction = "InRight";
+            break;
+        case "InRight":
+            if (menuOption1.X < 790)
+                menuOption1.X = menuOption1.X + menuOption1.Speed;
+            else
+                menuOption1.Direction = "Stop";
+            break;
+        case "OutLeft":
+            if (menuOption1.X > 607)
+                menuOption1.X = menuOption1.X - menuOption1.Speed;
+            else
+                menuOption1.Direction = "InRight";
+            break;
+        case "OutRight":
+            if (menuOption1.X < 1280)
+                menuOption1.X = menuOption1.X + menuOption1.Speed;
+            else
+                menuOption1.Direction = "Stop";
+            break;
+    }
+    
+    screen.drawImage(menuOption1.Image, menuOption1.X, menuOption1.Y);
+    screen.drawImage(menuOption2.Image, menuOption2.X, menuOption2.Y);
 }
 
 // renders screen based on current game state
